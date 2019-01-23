@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name" translatable="false">Tracker_Demo</string>
+    <string name="hello_world" translatable="false">Hello Square World!</string>
+    <string name="txtGreet" translatable="false">Greetings ...</string>
+    <string name="setMicro" translatable="false">Set Micro Goal</string>
+    <string name="setDaily" translatable="false">Set Daily Goal</string>
+    <string name="submit" translatable="false">Submit</string>
+</resources>
