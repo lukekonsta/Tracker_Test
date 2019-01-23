@@ -3,6 +3,7 @@ package com.example.tracker_test;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
@@ -31,13 +32,19 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 
 public class SetDaily extends WearableActivity {
 
     Button minus, plus, submit;
     TextView dailyGoal;
+    long allTimeDaily;
 
     int counter = 10000;
     SharedPreferences preferences;
@@ -55,6 +62,11 @@ public class SetDaily extends WearableActivity {
         setContentView(R.layout.activity_set_daily);
 
 
+        long value = getIntent().getLongExtra("ongoing", 0);
+        System.out.println("set daily");
+        System.out.println(value);
+
+
         minus = (Button) findViewById(R.id.dailyMinus);
         plus = (Button) findViewById(R.id.dailyPlus);
         submit = (Button) findViewById(R.id.submit);
@@ -68,7 +80,7 @@ public class SetDaily extends WearableActivity {
             @Override
             public void onClick(View v) {
 
-                counter = counter - 10;
+                counter = counter - 100;
                 dailyGoal.setText(Integer.toString(counter));
 
             }
@@ -79,7 +91,7 @@ public class SetDaily extends WearableActivity {
             @Override
             public void onClick(View v) {
 
-                counter = counter + 10;
+                counter = counter + 100;
                 dailyGoal.setText(Integer.toString(counter));
 
             }
@@ -135,6 +147,15 @@ public class SetDaily extends WearableActivity {
 
                         params.put("first","Daily Goal");//the first column is the $POST[]in the insert.php data
                         params.put("second",getGoal);
+                        String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+                        params.put("date",date);
+
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.add(Calendar.HOUR_OF_DAY,0);
+                        SimpleDateFormat format1 = new SimpleDateFormat("HH:mm:ss");
+                        String formatted = format1.format(calendar.getTime());
+                        System.out.println(formatted);
+                        params.put("time",formatted);
                         return params;
                     }
                 };
@@ -150,7 +171,7 @@ public class SetDaily extends WearableActivity {
             }
         });
 
-
+        allTimeDaily += System.currentTimeMillis();
 
 
 
