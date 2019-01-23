@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class MainActivity extends WearableActivity {
 
     private TextView mTextView;
+    long allTimeMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,7 @@ public class MainActivity extends WearableActivity {
                 if(nameWord.equals("Set Daily Goal")){
 
                     Intent intent = new Intent(MainActivity.this, SetDaily.class);
+                    //intent.putExtra("ongoing", startTime);
                     startActivity(intent);
 
                 }/*else if(nameWord.equals("Set Micro Goal")){
@@ -67,6 +69,7 @@ public class MainActivity extends WearableActivity {
                 }*/else if(nameWord.equals("See Progress")){
 
                     Intent intent = new Intent(MainActivity.this, SeeProgress.class);
+                    //intent.putExtra("ongoing", startTime);
                     startActivity(intent);
 
                 }
@@ -75,8 +78,20 @@ public class MainActivity extends WearableActivity {
             }
         });
 
+        allTimeMain = System.currentTimeMillis();
+
+//Divide millis by 1000 to get the number of seconds.
+
+    }
 
 
-
+    @Override
+    protected void onDestroy() {
+        System.out.println("closed");
+        long endTime = System.currentTimeMillis();
+        long seconds = (endTime - allTimeMain) / 1000;
+        String timegot = String.valueOf(seconds);
+        System.out.println(timegot);
+        super.onDestroy();
     }
 }

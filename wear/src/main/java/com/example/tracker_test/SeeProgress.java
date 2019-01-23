@@ -21,6 +21,8 @@ public class SeeProgress extends WearableActivity {
 
     SharedPreferences preferences;
 
+    long allTimeProgress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +85,8 @@ public class SeeProgress extends WearableActivity {
         textToGo.setText("");
         addProgressRemainingListener(seriesItem1, textToGo, "%.0f min to goal", backgroundMaximum);
 
+
+        allTimeProgress += System.currentTimeMillis();
 
     }//end of onCreate
 
